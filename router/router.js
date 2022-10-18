@@ -174,10 +174,12 @@ router.get('/Delete', (req, res) => {
 
     conn.query(sql, [id] ,(err, row) => {     // query = 명령을 할 수 있는것 (db에)
         if(!err){
-            console.log("입력성공 : "+row);
+            console.log("명령에 성공한 수 : "+row.affectedRows);
             res.redirect("http://127.0.0.1:5500/nodejs/public/ex06Main.html");
+        } else if (row.affectedRows == 0) {
+            console.log("삭제된 값이 없습니다.")
         } else{
-            console.log("입력실패 : "+ err);
+            console.log("삭제실패 : "+ err);
         }
     })
 
