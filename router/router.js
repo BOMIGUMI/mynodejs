@@ -1,7 +1,17 @@
+
 const { response } = require("express");
 const express = require("express");
+const mysql = require('mysql');
 
 const router = express.Router();         // express가 가지고있는 기능중에서 라우터 기능 사용을 선언해줌
+
+let conn = mysql.createConnection({     // conn으로 DB에 값을 입력을 할 수 있음
+    host : "127.0.0.1",
+    user : "root",
+    password : "rtq134679@",
+    port : "3306",
+    database : "nodejs_DB"
+});
 
 router.get("/plus",(request, response) => {    // plus라우터 기능정의 및 등록, get 방식으로 가져옴, plus로 들어올때 함수가 실행됨 -> 미들웨어로 등록해줘야함
     console.log("/plus 라우터 호출");
@@ -81,6 +91,96 @@ router.post('/Grade', (req, res) => {           // post방식의 기능정의 �
         res.write("Grade:" + "F")
     res.write("</body>");
     res.write("</html>");
+});
+
+router.post('/join', (req, res) => {
+    console.log("ID :" + req.body.id);
+    console.log("NAME : "+req.body.name);
+    console.log("EMAIL : "+req.body.email);
+    console.log("TEL : " + req.body.tel);
+    console.log("GENDER : " + req.body.gender);
+    console.log("HOBBY : " + req.body.hobby);
+    console.log("BIRTHDAY : " + req.body.birth);
+    console.log("COLOR : " + req.body.color);
+    console.log("COUNTRY : " + req.body.country);
+    console.log("TALK : " + req.body.talk);
+
+    res.writeHead(200, {"Content-Type" : "text/html; charset=utf-8"});
+    res.write("<html>");
+    res.write("<bodyl>");
+
+    res.write("ID :" + req.body.id + '<br>');
+    res.write("EMAIL :" + req.body.email + '<br>');
+    res.write("TEL :" + req.body.tel + '<br>');
+    res.write("GENDER :" + req.body.gender + '<br>');
+    res.write("HOBBY :" + req.body.hobby + '<br>');
+    res.write("BIRTHDAY :" + req.body.birth + '<br>');
+    res.write("COLOR :" + req.body.color + '<br>');
+    res.write("COUNTRY :" + req.body.country + '<br>');
+    res.write("TALK :" + req.body.talk + '<br>');
+
+    res.write("</body>");
+    res.write("</html>");
+});
+
+
+router.post('/Login', (req, res) => {
+    console.log("ID :" + req.body.id);
+    console.log("PW : "+req.body.pw);
+
+    // 사용자가 입력한 id : smatr 이고, pw가 123 일때, 성공 -> Logins.html, 실패 -> Login.html
+    let id = req.body.id;
+    let pw = req.body.pw;
+    if (id == 'smart' && pw == '123') {
+        res.redirect ("http://127.0.0.1:5500/nodejs/public/ex05Logins.html");       // 경로 재설정해줌
+    } else 
+        res.redirect ("http://127.0.0.1:5500/nodejs/public/ex05LoginF.html");
+
+    
+});
+
+
+router.post('/JoinDB', (req, res) => {
+    console.log("ID :" + req.body.id);
+    console.log("PW : "+req.body.pw);
+
+    // 사용자가 입력한 id : smatr 이고, pw가 123 일때, 성공 -> Logins.html, 실패 -> Login.html
+    let id = req.body.id;
+    let pw = req.body.pw;
+    let nick = req.body.nick;
+
+    let sql = "insert into member values(?, ?, ?)"; // ?의 순서대로 아래 [] 안에 적어주기
+
+    conn.query(sql, [id, pw, nick] ,(err, row) => {     // query = 명령을 할 수 있는것 (db에)
+        if(!err){
+            console.log("입력성공 : "+row);
+            res.redirect("http://127.0.0.1:5500/nodejs/public/ex06Main.html");
+        } else{
+            console.log("입력실패 : "+ err);
+        }
+    })
+    
+});
+
+// 회원삭제 라우터 만들기
+// 1. get 방섹의 /Delete 라우터 생성
+// 2. 사용자가 입력한 id 값 가져오기
+// 3. id 값을 통해 member테이블에 있는 id값 삭제하기
+// 4. 삭제 성공 후 Main.html로 돌아가기
+
+router.get('/Delete', (req, res) => {
+    let id = req.query.id;
+    let sql = "Delete from member where id = (?)";
+
+    conn.query(sql, [id] ,(err, row) => {     // query = 명령을 할 수 있는것 (db에)
+        if(!err){
+            console.log("입력성공 : "+row);
+            res.redirect("http://127.0.0.1:5500/nodejs/public/ex06Main.html");
+        } else{
+            console.log("입력실패 : "+ err);
+        }
+    })
+
 });
 
 // 외부에서 사용할 수 있게 만들어주기
