@@ -9,6 +9,7 @@ const DBrouter = require("./router/DBrouter.js");       // router폴더안의 ro
 const bodyparser = require("body-parser");
 const EJSrouter = require("./router/EJSrouter.js");
 const Sessionrouter = require("./router/Sessionrouter.js");
+const MessateRouter = require("./router/Messagerouter");
 
 
 
@@ -17,6 +18,7 @@ let ejs = require("ejs");           // ejs 사용정의
 
 const session = require("express-session");   // 세션기능
 const mysql_session = require("express-mysql-session");    // 세션이 저장되는 영역 (mysql)
+const Messagerouter = require("./router/Messagerouter");
 // -> 미들웨어로 등록 시켜줘야함
 
   
@@ -47,6 +49,7 @@ app.use(router);
 app.use(DBrouter); 
 app.use(EJSrouter);                                    // 서버에서사용하겠다고 미들웨어로 router 등록 해야함
 app.use(Sessionrouter);
+app.use(Messagerouter);
 
 app.listen(3001);                                      // 현재 서버파일의 포트번호를 설정해주기 
 
