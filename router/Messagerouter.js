@@ -1,10 +1,8 @@
 const express = require("express"); // 라우터 기능을 불러오기위해 express 가져오기
 const Messagerouter = express.Router();
-const conn = require("../config/DBConfig.js")
-//DB정보등록(conn)
+const conn = require("../config/DBConfig.js") //DB정보등록(conn)
 
 
-//app.js 미들웨어 등록해주기
 
 Messagerouter.get("/Message", (req,res) => {
     res.render("message", {
@@ -70,7 +68,7 @@ Messagerouter.post('/MessageLogin', (req, res) => {
             // 랜더링 할 때 로그인에 성공한 id값을 전송v
             // ejs파일에서 로그인에성공한 id값을 출력
 
-            req.session.user = {        // user라는 값안에 저장되는 데이터들
+            req.session.user = {        // user라는 session안에 저장되는 데이터들 : email, tel, address
                 "email" : row[0].email,
                 "tel" : row[0].tel,
                 "address" : row[0].address
@@ -79,7 +77,7 @@ Messagerouter.post('/MessageLogin', (req, res) => {
             console.log("session 영역에 email저장 성공" + req.session.user);
             res.render("message", {
                 user : req.session.user       // 로그인에 성공한사람의 정보값을 가져갈 수 있게함
-                // -> 바로 ejs파일로 넘어가게됨
+                                                // -> 바로 ejs파일로 넘어가게됨
             })
             
         } else if (row.length == 0) {
