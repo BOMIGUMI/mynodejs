@@ -115,8 +115,6 @@ router.post('/join', (req, res) => {
 });
 
 
-router.get("/Message", (req,res) => {
-    res.render("message", {});
-})
+
 
 module.exports = router;
