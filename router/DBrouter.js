@@ -141,7 +141,7 @@ DBrouter.get('/selectAll', (req, res) => {
         } else if (row.length > 0) {            //  검색된 데이터 출력문
             console.log("검색된 데이터의 수 : " + row.length)
 
-            res.render("SelectAll", {       // 템플릿 엔진을통해 ejs파일을 row값을 갖고 SelectAll.ejs 렌더링 해주기
+            res.render("SelectAll", {       // SelectAll.ejs파일에 row_names : row 데이터를 전달해준다.
                 row_names : row
             })
 
