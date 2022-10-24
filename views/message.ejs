@@ -22,7 +22,7 @@
 						<a href="index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
 						<nav>
 								
-							<%if(user == null){%>  <!-- user에서이메일을 비교하는게아니라 유저 자체에서 비교해야함 -->
+							<%if(user == null){%>  <!-- user에서 이메일을 비교하는게아니라 유저 자체에서 비교해야함, user에 데이터가 담겨있기 때문 -->
 								<a href="#menu">로그인</a>
 							<%}else{%>
 								<!--  admin 계정만 볼 수 있는 회원정보 관리 링크를 만드시오 -->
