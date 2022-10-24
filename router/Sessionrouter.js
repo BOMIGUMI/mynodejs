@@ -17,7 +17,7 @@ Sessionrouter.get("/sessionCreate", (req,res) => {
 
 Sessionrouter.get("/sessionSelect", (req,res) => {
 
-    // 2. session검색하기 -> session에 있는  user값 가져오기
+    // 2. session검색하기 -> session에 있는  user값 가져오기 (id, pw, nick)
     console.log("session에 있는 user값 : "+req.session.user);
 
 })
@@ -32,4 +32,4 @@ Sessionrouter.get("/sessionDelete", (req,res) => {
 
 })
 
-module.exports = Sessionrouter;
+module.exports = Sessionrouter;     // session을 외부 모듈에서 사용할 수 있게 해주기
