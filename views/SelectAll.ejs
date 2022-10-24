@@ -27,8 +27,8 @@
         <%for(let i=0; i< row_names.length; i++){%>     <!-- ejs에서 nodejs코드쓸 수있는부분 -->
             <tr>
                 <td><%=row_names[i].id%></td>           <!-- id값을 꺼내와 브라우저에 표시(출력) -->
-                <td><%=row_names[i].pw%></td>
-                <td><%=row_names[i].nick%></td>
+                <td><%=row_names[i].pw%></td>           <!-- pw값을 꺼내와 브라우저에 표시(출력) -->
+                <td><%=row_names[i].nick%></td>         <!-- nick값을 꺼내와 브라우저에 표시(출력) -->
                 <td><a href="http://127.0.0.1:3001/SelectDelete?id=<%=row_names[i].id%>">삭제</a></td>
             </tr>
         <%}%>
