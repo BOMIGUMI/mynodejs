@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();         // express가 가지고있는 기능중에서 라우터 기능 사용을 선언해줌
 
@@ -114,7 +115,26 @@ router.post('/join', (req, res) => {
     res.end();
 });
 
+router.get("/ex01", (req,res)=>{
+    console.log(req.query)
 
+    // 세션 등록하기
+    req.session.user = {
+        name : request.query.userName
+    }
 
+    console.log(req.session.user.name)
+
+    res.render('ex01', {
+        name : req.query.userName,
+        season : req.query.season
+    })
+});
+
+router.get("ex02", (req,res)=>{
+    console.log('ex02 router')
+
+    delete req.session.user
+});
 
 module.exports = router;
