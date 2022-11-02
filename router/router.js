@@ -1,7 +1,5 @@
-const { request } = require("express");
 const express = require("express");
 const router = express.Router();         // express가 가지고있는 기능중에서 라우터 기능 사용을 선언해줌
-
 
 
 router.get("/plus",(request, response) => {    // plus라우터 기능정의 및 등록, get 방식으로 가져옴, plus로 들어올때 함수가 실행됨 -> 미들웨어로 등록해줘야함
@@ -120,7 +118,7 @@ router.get("/ex01", (req,res)=>{
 
     // 세션 등록하기
     req.session.user = {
-        name : request.query.userName
+        name : req.query.userName
     }
 
     console.log(req.session.user.name)
@@ -131,8 +129,8 @@ router.get("/ex01", (req,res)=>{
     })
 });
 
-router.get("ex02", (req,res)=>{
-    console.log('ex02 router')
+router.get("/ex02", (req,res)=>{
+    console.log('ex02 router success')
 
     delete req.session.user
 });
